@@ -20,6 +20,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var textField: UITextField!
     var array = ["Москва", "Новосибирск", "Екатеринбург", "Владивосток", "Омск", "Томск"]
     var arrCity = [City]()
+    var cityName = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +55,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 70
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        cityName = arrCity[indexPath.row].name
+        performSegue(withIdentifier: "detailVC", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? detailVC {
+            vc.cityName = cityName
+        }
     }
     
     func getCityDetail(name: String) {
