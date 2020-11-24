@@ -28,10 +28,14 @@ class MapVC: UIViewController,CLLocationManagerDelegate, MKMapViewDelegate {
         mapView.showsUserLocation = true
         
         mapView.userLocation.title = "Im here"
+        let coord: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+
+        mapToCoordinate(coordinate: coord)
+        addAnnotationOnLocation(pointedCoordinate: coord)
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        if annotation.coordinate.latitude != mapView.userLocation.coordinate.latitude && annotation.coordinate.longitude != mapView.userLocation.coordinate.longitude {
+
             let marker = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "marker")
             
             marker.canShowCallout = true
@@ -40,16 +44,23 @@ class MapVC: UIViewController,CLLocationManagerDelegate, MKMapViewDelegate {
             marker.rightCalloutAccessoryView = infoButton
             marker.calloutOffset = CGPoint(x: -5, y: 5)
             return marker
-        }
-        return nil
+
     }
     
     @objc func infoAction() {
         print("Info")
     }
 
+    func addAnnotationOnLocation(pointedCoordinate: CLLocationCoordinate2D) {
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = pointedCoordinate
+        annotation.title = "Happened!"
+        annotation.subtitle = "c:"
+        mapView.addAnnotation(annotation)
+    }
+    
     func mapToCoordinate(coordinate: CLLocationCoordinate2D) {
-        let region = MKCoordinateRegion.init(center: coordinate, latitudinalMeters: lat, longitudinalMeters: lon)
+        let region = MKCoordinateRegion.init(center: coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
         mapView.setRegion(region, animated: true)
     }
     

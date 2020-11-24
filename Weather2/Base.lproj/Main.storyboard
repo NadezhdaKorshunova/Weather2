@@ -251,7 +251,7 @@
                                     <color key="titleColor" systemColor="systemBackgroundColor"/>
                                 </state>
                                 <connections>
-                                    <action selector="goMap:" destination="aRh-sB-4yu" eventType="touchUpInside" id="0vB-C1-9s0"/>
+                                    <action selector="goMapVC:" destination="aRh-sB-4yu" eventType="touchUpInside" id="CqY-RU-t4E"/>
                                 </connections>
                             </button>
                         </subviews>
